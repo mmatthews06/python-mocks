@@ -7,25 +7,46 @@ from unittest.mock import MagicMock
 from main import main
 from main import ExampleClass
 
-class Test_Main(unittest.TestCase):
+class TestMainMethod(unittest.TestCase):
 
     @patch('main.ExampleClass')
     def test_main_passes_foo(self, MockExampleClass: MagicMock):
-        args = ['main', '-f', 'hello']
+        foo = 'hello'
+        args = ['main', '-f', foo]
         with  patch.object(sys, 'argv', args):
             main()
-            MockExampleClass.assert_called_with('hello', None)
+            MockExampleClass.assert_called_with(foo, None)
 
     @patch('main.ExampleClass')
     def test_main_passes_bar(self, MockExampleClass: MagicMock):
+        bar = 'bye'
         args = ['main', '-b', 'bye']
         with  patch.object(sys, 'argv', args):
             main()
-            MockExampleClass.assert_called_with(None, 'bye')
+            MockExampleClass.assert_called_with(None, bar)
 
     @patch('main.ExampleClass')
     def test_main_passes_foo_and_bar(self, MockExampleClass: MagicMock):
-        args = ['main', '-f', 'hello', '-b', 'bye']
+        foo = 'hello'
+        bar = 'bye'
+        args = ['main', '-f', foo, '-b', bar]
         with  patch.object(sys, 'argv', args):
             main()
-            MockExampleClass.assert_called_with('hello', 'bye')
+            MockExampleClass.assert_called_with(foo, bar)
+
+    @patch('main.ExampleClass.run')
+    def test_main_runs_method(self, MockRunMethod: MagicMock):
+        defaultRunParam = 'not specified!'
+        args = ['main', '-r']
+        with  patch.object(sys, 'argv', args):
+            main()
+            MockRunMethod.assert_called_with(defaultRunParam)
+
+    @patch('main.ExampleClass.run')
+    def test_main_runs_method_with_param(self, MockRunMethod: MagicMock):
+        runParam = 'I am a run param!'
+        args = ['main', '-r', '-p', runParam]
+        with  patch.object(sys, 'argv', args):
+            main()
+            MockRunMethod.assert_called_with(runParam)
+
