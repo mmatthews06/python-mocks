@@ -35,13 +35,12 @@ class TestMainMethod(unittest.TestCase):
             main()
             MockExampleClass.assert_called_with(foo, bar)
 
+    @patch('sys.argv', ['main', '-r'])
     @patch('main.ExampleClass.run')
     def test_main_runs_method(self, MockRunMethod: MagicMock):
         defaultRunParam = 'not specified!'
-        args = ['main', '-r']
-        with  patch.object(sys, 'argv', args):
-            main()
-            MockRunMethod.assert_called_with(defaultRunParam)
+        main()
+        MockRunMethod.assert_called_with(defaultRunParam)
 
     @patch('main.ExampleClass.run')
     def test_main_runs_method_with_param(self, MockRunMethod: MagicMock):
@@ -51,10 +50,9 @@ class TestMainMethod(unittest.TestCase):
             main()
             MockRunMethod.assert_called_with(runParam)
 
+    @patch('sys.argv', ['main', '-v'])
     @patch('sys.stdout', new_callable=StringIO)
     def test_display_version(self, mockStdOut: StringIO):
-        args = ['main', '-v']
-        with  patch.object(sys, 'argv', args):
-            with self.assertRaises(SystemExit):
-                main()
-            self.assertIn('main 1.0', mockStdOut.getvalue())
+        with self.assertRaises(SystemExit):
+            main()
+        self.assertIn('main 1.0', mockStdOut.getvalue())
