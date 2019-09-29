@@ -6,11 +6,14 @@ from unittest.mock import MagicMock
 
 from main import ExampleClass
 
-@patch('main.logger')
+
 class TestMainMethod(unittest.TestCase):
+    def setUp(self):
+        self.loggerPatch = patch('main.logger')
+        self.mockLogger: MagicMock = self.loggerPatch.start()
 
     @patch('subprocess.Popen')
-    def test_run_logging(self, mockPopen: MagicMock, mockLogger: MagicMock):
+    def test_run_logging(self, mockPopen: MagicMock):
         '''
         Test simple logging.
         '''
@@ -18,11 +21,11 @@ class TestMainMethod(unittest.TestCase):
         ex = ExampleClass('hello', 'bye')
         ex.run(runParam)
 
-        mockLogger.info.assert_any_call(f'Info message - {runParam}!')
-        self.assertIn(runParam, mockLogger.info.call_args_list[0][0][0])
+        self.mockLogger.info.assert_any_call(f'Info message - {runParam}!')
+        self.assertIn(runParam, self.mockLogger.info.call_args_list[0][0][0])
 
     @patch('subprocess.Popen.__enter__')
-    def test_subprocess_out(self, mockPopen: MagicMock, mockLogger: MagicMock):
+    def test_subprocess_out(self, mockPopen: MagicMock):
         '''
         Test logging of Popen output
         '''
@@ -32,10 +35,10 @@ class TestMainMethod(unittest.TestCase):
         ex = ExampleClass('hello', 'bye')
         ex.run(runParam)
 
-        mockLogger.info.assert_any_call(f'Out - {"".join(commandStdOut)}')
+        self.mockLogger.info.assert_any_call(f'Out - {"".join(commandStdOut)}')
 
     @patch('subprocess.Popen')
-    def test_command_build(self, mockPopen: MagicMock, mockLogger: MagicMock):
+    def test_command_build(self, mockPopen: MagicMock):
         '''
         Test whether we built the command submitted to Popen correctly.
         '''
