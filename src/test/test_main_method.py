@@ -14,7 +14,7 @@ class TestMainMethod(unittest.TestCase):
     @patch('main.ExampleClass')
     def test_main_passes_foo(self, MockExampleClass: MagicMock):
         '''
-        Test is main passes the foo argument.
+        Test if main passes the foo argument.
         '''
         foo = 'hello'
         args = ['main', '-f', foo]
@@ -25,7 +25,7 @@ class TestMainMethod(unittest.TestCase):
     @patch('main.ExampleClass')
     def test_main_passes_bar(self, MockExampleClass: MagicMock):
         '''
-        Test is main passes the bar argument.
+        Test if main passes the bar argument.
         '''
         bar = 'bye'
         args = ['main', '-b', 'bye']
@@ -36,7 +36,7 @@ class TestMainMethod(unittest.TestCase):
     @patch('main.ExampleClass')
     def test_main_passes_foo_and_bar(self, MockExampleClass: MagicMock):
         '''
-        Test is main passes both arguments when provided (NOTE: not likely necessary)
+        Test if main passes both arguments when provided (NOTE: not likely necessary)
         '''
         foo = 'hello'
         bar = 'bye'
@@ -58,7 +58,7 @@ class TestMainMethod(unittest.TestCase):
     @patch('main.ExampleClass.run')
     def test_main_runs_method_with_param(self, mockRunMethod: MagicMock):
         '''
-        Test is main passes the right parameter to the run method
+        Test if main passes the right parameter to the run method
         '''
         runParam = 'I am a run param!'
         args = ['main', '-r', '-p', runParam]
