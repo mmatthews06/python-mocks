@@ -1,6 +1,7 @@
 
 import sys
 import unittest
+from io import StringIO
 from unittest.mock import patch
 from unittest.mock import MagicMock
 
@@ -50,3 +51,10 @@ class TestMainMethod(unittest.TestCase):
             main()
             MockRunMethod.assert_called_with(runParam)
 
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_display_version(self, mockStdOut: StringIO):
+        args = ['main', '-v']
+        with  patch.object(sys, 'argv', args):
+            with self.assertRaises(SystemExit):
+                main()
+            self.assertIn('main 1.0', mockStdOut.getvalue())
