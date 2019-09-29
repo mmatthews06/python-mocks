@@ -1,12 +1,30 @@
 #!/bin/env/python3
+import logging
+import subprocess
+import sys
+
+logger = logging.getLogger(__name__)
+stdoutHander = logging.StreamHandler(sys.stdout)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(stdoutHander)
 
 class ExampleClass(object):
     def __init__(self, foo, bar):
         self.foo = foo
         self.bar = bar
+        self.baseCommand = 'ls'
 
     def run(self, param):
-        pass
+        logger.info(f'Info message - {param}!')
+
+        command = [self.baseCommand, f'-{param}']
+        stdoutStr = ''
+        with subprocess.Popen(command, stdout=subprocess.PIPE) as p:
+            for line in p.stdout:
+                stdoutStr += str(line)
+
+        logger.info(f'Out - {stdoutStr}')
+
 
 
 def parse_args():
