@@ -8,9 +8,11 @@ import logging
 import subprocess
 import sys
 
+
 logger = logging.getLogger(__name__) # pylint: disable=invalid-name
 logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(sys.stdout))
+
 
 class ExampleClass(): # pylint: disable=too-few-public-methods
     '''

@@ -34,7 +34,7 @@ class TestMainMethod(unittest.TestCase):
         Test if main passes the bar argument.
         '''
         bar = 'bye'
-        args = ['main', '-b', 'bye']
+        args = ['main', '-b', bar]
         with  patch.object(sys, 'argv', args):
             main()
             mockExampleClass.assert_called_with(None, bar)
