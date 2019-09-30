@@ -1,4 +1,6 @@
-
+'''
+test_main_method.py
+'''
 import inspect
 import sys
 import unittest
@@ -6,13 +8,17 @@ from io import StringIO
 from unittest.mock import patch
 from unittest.mock import MagicMock
 
+import main as mainModule
 from main import main
-from main import ExampleClass
+
 
 class TestMainMethod(unittest.TestCase):
-
+    # pylint: disable=no-self-use,invalid-name
+    '''
+    Tests for the main method in main.py
+    '''
     @patch('main.ExampleClass')
-    def test_main_passes_foo(self, MockExampleClass: MagicMock):
+    def test_main_passes_foo(self, mockExampleClass: MagicMock):
         '''
         Test if main passes the foo argument.
         '''
@@ -20,10 +26,10 @@ class TestMainMethod(unittest.TestCase):
         args = ['main', '-f', foo]
         with  patch.object(sys, 'argv', args):
             main()
-            MockExampleClass.assert_called_with(foo, None)
+            mockExampleClass.assert_called_with(foo, None)
 
     @patch('main.ExampleClass')
-    def test_main_passes_bar(self, MockExampleClass: MagicMock):
+    def test_main_passes_bar(self, mockExampleClass: MagicMock):
         '''
         Test if main passes the bar argument.
         '''
@@ -31,10 +37,10 @@ class TestMainMethod(unittest.TestCase):
         args = ['main', '-b', 'bye']
         with  patch.object(sys, 'argv', args):
             main()
-            MockExampleClass.assert_called_with(None, bar)
+            mockExampleClass.assert_called_with(None, bar)
 
     @patch('main.ExampleClass')
-    def test_main_passes_foo_and_bar(self, MockExampleClass: MagicMock):
+    def test_main_passes_foo_and_bar(self, mockExampleClass: MagicMock):
         '''
         Test if main passes both arguments when provided (NOTE: not likely necessary)
         '''
@@ -43,7 +49,7 @@ class TestMainMethod(unittest.TestCase):
         args = ['main', '-f', foo, '-b', bar]
         with  patch.object(sys, 'argv', args):
             main()
-            MockExampleClass.assert_called_with(foo, bar)
+            mockExampleClass.assert_called_with(foo, bar)
 
     @patch('sys.argv', ['main', '-r'])
     @patch('main.ExampleClass.run')
@@ -82,10 +88,8 @@ class TestMainMethod(unittest.TestCase):
         Test if the last lines are the canonical ones.
         (NOTE: I do not personally endorse this test, reasonable minds may differ.)
         '''
-        import main as mainModule
         sourceLines = inspect.getsourcelines(mainModule)[0]
         penultimateLine = sourceLines[-2]
         lastLine = sourceLines[-1]
         self.assertEqual(penultimateLine, "if __name__ == '__main__':\n")
         self.assertEqual(lastLine, "    main()\n")
-
