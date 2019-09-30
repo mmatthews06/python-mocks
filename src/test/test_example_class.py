@@ -12,7 +12,7 @@ from main import ExampleClass
 
 class TestExampleClass(unittest.TestCase):
     '''
-    Test for the ExampleClass.
+    Tests for the ExampleClass.
     '''
     def setUp(self):
         self.loggerPatch = patch('main.logger')
