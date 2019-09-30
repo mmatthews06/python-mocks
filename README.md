@@ -1,5 +1,5 @@
-# python-mocks
-Some example Python unit test mocks
+# Python Unit Testing Mock Examples
+Some example Python unit test mocks. Please note, some testing practices may be questionable, like testing log output, but they fit a narrow use case that was good to build these examples.
 
 This code has been tested with Python 3.7, though should be backwards compatible to 3.6 and maybe 3.5.
 

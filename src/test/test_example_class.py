@@ -13,6 +13,7 @@ from main import ExampleClass
 class TestExampleClass(unittest.TestCase):
     '''
     Tests for the ExampleClass.
+    NOTE: Logging tests likely aren't necessary, these are just examples.
     '''
     def setUp(self):
         self.loggerPatch = patch('main.logger')
