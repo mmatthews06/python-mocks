@@ -86,7 +86,7 @@ class TestMainMethod(unittest.TestCase):
     def test_if_name_equals_main(self): # pylint: disable=invalid-name
         '''
         Test if the last lines are the canonical ones.
-        (NOTE: I do not personally endorse this test, reasonable minds may differ.)
+        (NOTE: I do not personally endorse this test, this is only a demo.)
         '''
         sourceLines = inspect.getsourcelines(mainModule)[0]
         penultimateLine = sourceLines[-2]
