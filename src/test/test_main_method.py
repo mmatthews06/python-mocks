@@ -26,7 +26,8 @@ class TestMainMethod(unittest.TestCase):
         args = ['main', '-f', foo]
         with  patch.object(sys, 'argv', args):
             main()
-            mockExampleClass.assert_called_with(foo, None)
+
+        mockExampleClass.assert_called_with(foo, None)
 
     @patch('main.ExampleClass')
     def test_main_passes_bar(self, mockExampleClass: MagicMock): # pylint: disable=invalid-name
@@ -37,7 +38,8 @@ class TestMainMethod(unittest.TestCase):
         args = ['main', '-b', bar]
         with  patch.object(sys, 'argv', args):
             main()
-            mockExampleClass.assert_called_with(None, bar)
+
+        mockExampleClass.assert_called_with(None, bar)
 
     @patch('main.ExampleClass')
     def test_main_passes_foo_and_bar(self, mockExampleClass: MagicMock): # pylint: disable=invalid-name
@@ -49,7 +51,8 @@ class TestMainMethod(unittest.TestCase):
         args = ['main', '-f', foo, '-b', bar]
         with  patch.object(sys, 'argv', args):
             main()
-            mockExampleClass.assert_called_with(foo, bar)
+
+        mockExampleClass.assert_called_with(foo, bar)
 
     @patch('sys.argv', ['main', '-r'])
     @patch('main.ExampleClass.run')
@@ -70,7 +73,8 @@ class TestMainMethod(unittest.TestCase):
         args = ['main', '-r', '-p', runParam]
         with  patch.object(sys, 'argv', args):
             main()
-            mockRunMethod.assert_called_with(runParam)
+
+        mockRunMethod.assert_called_with(runParam)
 
     @patch('sys.argv', ['main', '-v'])
     @patch('sys.stdout', new_callable=StringIO)
