@@ -14,7 +14,7 @@ packaging==19.2
 pathtools==0.1.2
 pkg-resources==0.0.0
 pluggy==0.13.0
-py==1.8.0
+py==1.10.0
 pylint==2.4.1
 pyparsing==2.4.2
 pytest==5.2.0
